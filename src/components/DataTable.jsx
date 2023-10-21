@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { userColumns } from '../../src/datatablesource';
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { deletee } from '../../redux/userRows';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../Firebese'
+import { doc, deleteDoc } from "firebase/firestore";
 
 function DataTable() {
-  const userRows = useSelector((state) => state.userRows);
-  const dispatch = useDispatch()
+  const [data, setData] = useState([])
 
-  const rowsWithId = userRows.map((row, index) => {
-    return { ...row, id: index + 1 };
-  });
+
+
+
+  useEffect(() => {
+    const fetchData = async() => {
+    const list = []
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        querySnapshot.forEach((doc) => {
+          list.push({id: doc.id, ...doc.data()})
+        });
+        setData(list)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [])
+
+
+    
+  const handleInput = async (id) =>{
+    try{
+      await deleteDoc(doc(db, "users", id));
+      setData(data.filter((item) => item.id !== id))
+    }catch(err) {
+      console.log(err)
+    }
+  }
 
 
   const userAction = [
@@ -30,7 +56,7 @@ function DataTable() {
               View
             </NavLink>
             <button
-              onClick={() => dispatch(deletee(params.row.id))}
+              onClick={() => handleInput(params.row.id)}
               className={`px-2 py-1 rounded-md cursor-pointer text-[#E86680] border-dashed border-[1px] border-[#E86680] text-[12px]`}
             >
               Delete
@@ -44,7 +70,7 @@ function DataTable() {
   return (
     <div className="w-full ">
       <DataGrid
-        rows={rowsWithId}
+        rows={data}
         columns={userColumns.concat(userAction)}
         pageSize={5}
         rowsPerPageOptions={[5]}

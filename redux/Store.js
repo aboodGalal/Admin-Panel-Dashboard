@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ColorBg from "./ColorBg";
-import userRows from "./userRows";
+import {CurrentUserReducer} from "./CurrentUser";
 const store = configureStore({
     reducer:{
         colorBg: ColorBg,
-        userRows: userRows,
+        CurrentUserReducer,
     }
 })
 

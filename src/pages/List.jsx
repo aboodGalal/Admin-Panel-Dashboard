@@ -1,4 +1,3 @@
-import React from 'react'
 import DataTable from '../components/DataTable'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
@@ -10,7 +9,7 @@ function List() {
   return (
     <div className='flex'>
       <div className='flex-1'><Sidebar /></div>
-      <div className={`flex-[6]  gap-5 ${colorr?'':'bg-drk'}`}>
+      <div className={`flex-[6]  gap-5 ${colorr ? '' : 'bg-drk'}`}>
         <Navbar />
         <div className={`flex flex-row w-full justify-between items-center px-5 mt-3`}>
           <h3 className='text-tx text-lg'>Add New User</h3>

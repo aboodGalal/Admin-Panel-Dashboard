@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Sidebar from '../components/Sidebar'
@@ -6,12 +6,32 @@ import Navbar from '../components/Navbar'
 import './Single.css'
 import Chart from '../components/Chart'
 import Table from '../components/Table'
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../Firebese'
 
 function Single() {
-  const userRows = useSelector((state) => state.userRows)
   const {id }= useParams()
-  const data = userRows.filter((e) => e.id === parseInt(id))[0]
+  const [data, setData] = useState([])
+  const user = data.filter((us) => us.id === id)[0]
   const colorr = useSelector((state) => state.colorBg.boolean)
+
+
+  useEffect(() => {
+    const fetchData = async() => {
+    const list = []
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        querySnapshot.forEach((doc) => {
+          list.push({id: doc.id, ...doc.data()})
+        });
+        setData(list)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [])
+
 
   return (
     <div className='flex'>
@@ -21,21 +41,21 @@ function Single() {
       <div className={`flex flex-row gap-3 p-3 h-[300px] mx-3 `}>
         <div className={`flex flex-[1] flex-col rounded-lg p-3 gap-3 relative crd ${colorr?'':'bg-drk shadow-sh'} shadow-lg h-full`}>
           <h3 className={`text-tx`}>Information</h3>
-          {data ? (
+          {user ? (
     <div className={`flex gap-3`}>
       <div className={`rounded-full  min-w-[100px] min-h-[100px] w-[100px] h-[100px]`}>
-        <img src={`${data.img}`} alt="" className={`w-full h-full rounded-full`}/>
+        <img src={`${user.img}`} alt="" className={`w-full h-full rounded-full`}/>
       </div>
       <div className={`flex flex-col gap-2 text-tx text-[13px]`}>
-        <h1 className='text-[25px] font-bold'>{data.username}</h1>
-        <p>{data.email}</p>
-        <p>Phone:+1 2345 67 89</p>
+        <h1 className='text-[25px] font-bold'>{user.username}</h1>
+        <p>{user.email}</p>
+        <p>Phone:{user.number}</p>
         <p>Address:Elton St. 234 Garden Yd. NewYork</p>
         <p>Country:USA</p>
       </div>
     </div>
   ) : (
-    <p>Loading data...</p> // or any other loading indication
+    <p>Loading data...</p> 
   )}
         </div>
         <div className={`flex-[2] p-5 ${colorr?'':' shadow-sh'} shadow-lg h-full`}>

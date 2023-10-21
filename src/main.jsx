@@ -8,6 +8,7 @@ import New from './pages/New.jsx'
 import './index.css'
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import { Provider } from 'react-redux'
@@ -16,13 +17,19 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { useSelector } from 'react-redux'
 
+
+const RequireAuth = ({children}) =>{
+  const currentUser = useSelector((state) => state.CurrentUserReducer.current)
+  return currentUser ? children : <Navigate to='/login'/>
+}
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <RequireAuth><App /></RequireAuth>,
   },
   {
     path: "/login",
@@ -30,27 +37,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/users",
-    element: <List />,
+    element: <RequireAuth><List /></RequireAuth>,
   },
   {
     path: "/users/:id",
-    element: <Single/>,
+    element: <RequireAuth><Single/></RequireAuth>,
   },
   {
     path: "/users/new",
-    element: <New />,
+    element: <RequireAuth><New /></RequireAuth>,
   },
   {
     path: "/products",
-    element: <List />,
+    element: <RequireAuth><List /></RequireAuth>,
   },
   {
     path: "/products/:userId",
-    element: <Single />,
+    element: <RequireAuth><Single /></RequireAuth>,
   },
   {
     path: "/products/new",
-    element: <New />,
+    element: <RequireAuth><New /></RequireAuth>,
   },
 ]);
 

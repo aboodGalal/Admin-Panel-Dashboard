@@ -14,8 +14,11 @@ const colorBg = createSlice({
         Fl: (state) =>{
             state.boolean = false
         },
+        Toggle: (state) =>{
+            state.boolean = !state.boolean
+        }
     }
 })
 
 export default colorBg.reducer
-export const {Tr, Fl} = colorBg.actions
+export const {Tr, Fl, Toggle} = colorBg.actions

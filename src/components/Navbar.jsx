@@ -3,8 +3,11 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass,faGlobe,faMoon,faCompress,faBell,faMessage,faListUl } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css'
+import { useDispatch } from 'react-redux'
+import { Toggle } from '../../redux/ColorBg'
 function Navbar() {
   const colorr = useSelector((state) => state.colorBg.boolean)
+  const dispatch = useDispatch()
 
   return (
     <section className={`w-full h-[47px] border-b-[1px] border-solid ${colorr? 'bg-white border-brdrW':'bg-drk border-brdrB'} flex flex-row justify-between items-center px-5`}>
@@ -17,7 +20,7 @@ function Navbar() {
           <FontAwesomeIcon icon={faGlobe} className={`text-tx`}/>
           <p className={`text-tx`}>English</p>
         </div>
-        <FontAwesomeIcon icon={faMoon} className={`text-tx`}/>
+        <a onClick={() => dispatch(Toggle())} className={`relative cursor-pointer`}><FontAwesomeIcon icon={faMoon} className={`text-tx`}/></a>
         <FontAwesomeIcon icon={faCompress}  className={`text-tx`}/>
         <a className={`relative note cursor-pointer`}><FontAwesomeIcon icon={faBell} className={`text-tx`}/></a>
         <a className={`relative note2 cursor-pointer`}><FontAwesomeIcon icon={faMessage} className={`text-tx`}/></a>
