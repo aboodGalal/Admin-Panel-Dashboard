@@ -18,6 +18,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { useSelector } from 'react-redux'
+import SignUp from './pages/SignUp.jsx'
+import Products from './pages/Products.jsx'
 
 
 const RequireAuth = ({children}) =>{
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
     path: "/users",
     element: <RequireAuth><List /></RequireAuth>,
   },
@@ -47,18 +53,23 @@ const router = createBrowserRouter([
     path: "/users/new",
     element: <RequireAuth><New /></RequireAuth>,
   },
+  // {
+  //   path: "/products",
+  //   element: <RequireAuth><List /></RequireAuth>,
+  // },
+  // {
+  //   path: "/products/:userId",
+  //   element: <RequireAuth><Single /></RequireAuth>,
+  // },
+  // {
+  //   path: "/products/new",
+  //   element: <RequireAuth><New /></RequireAuth>,
+  // },
   {
     path: "/products",
-    element: <RequireAuth><List /></RequireAuth>,
+    element: <RequireAuth><Products /></RequireAuth>,
   },
-  {
-    path: "/products/:userId",
-    element: <RequireAuth><Single /></RequireAuth>,
-  },
-  {
-    path: "/products/new",
-    element: <RequireAuth><New /></RequireAuth>,
-  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

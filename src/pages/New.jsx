@@ -89,12 +89,12 @@ uploadTask.on('state_changed',
         <div className={`flex justify-start items-center w-[97%] mx-auto  mt-3 p-3 ${colorr ? '' : 'shadow-sh bg-drk'} shadow-lg`}>
           <h2 className='text-tx text-lg'>Add New User</h2>
         </div>
-        <div className={`flex flex-row w-[97%] mx-auto  mt-5 p-3 ${colorr ? '' : 'shadow-sh bg-drk'} shadow-lg`}>
-          <div className={`flex-[1] flex justify-center p-4`}>
+        <div className={`flex flex-col md:flex-row w-[97%] mx-auto  mt-5 p-3 ${colorr ? '' : 'shadow-sh bg-drk'} shadow-lg`}>
+          <div className={`flex-[1]  flex justify-center p-4`}>
             <img src={file ? URL.createObjectURL(file) : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} alt="" className={`w-[100px] h-[100px] min-w-[100px] min-h-[100px] rounded-full`} />
           </div>
           <div className={`flex-[2] flex flex-col  gap-5`}>
-            <form onSubmit={handleSubmit} className={`grid grid-cols-2 grid-rows-4 gap-5 `}>
+            <form onSubmit={handleSubmit} className={`grid grid-cols-1 grid-rows-8 md:grid-cols-2 md:grid-rows-4 gap-5 `}>
               <div className={`flex flex-col gap-1 text-tx`}>
                 <label htmlFor="file">
                   Image:<FontAwesomeIcon icon={faCloudArrowUp} className={`text-tx`} />

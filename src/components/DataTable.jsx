@@ -68,7 +68,7 @@ function DataTable() {
   ];
 
   return (
-    <div className="w-full ">
+    <div className="w-full overflow-x-auto overflow-hidden">
       <DataGrid
         rows={data}
         columns={userColumns.concat(userAction)}

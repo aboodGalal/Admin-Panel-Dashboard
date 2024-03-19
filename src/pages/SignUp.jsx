@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../Firebese';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../Firebese'; // Make sure this path is correct
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  const [error, setError] = useState(false);
+function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Enable navigation
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        window.location.href = '/';
-        window.localStorage.setItem('user', JSON.stringify(user));
+        navigate('/'); // Navigate to the dashboard or home page after successful sign up
       })
       .catch((error) => {
-        setError(true);
+        console.error(error);
+        setError(true); // Display error on sign up failure
       });
   };
 
@@ -38,14 +36,14 @@ function Login() {
               Password
             </label>
             <input onChange={(e) => setPassword(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="******************" required />
-            {error && <p className="text-red-500 text-xs italic">Wrong password or email.</p>}
+            {error && <p className="text-red-500 text-xs italic">Error creating user account. Please try again.</p>}
           </div>
           <div className="flex items-center justify-between">
             <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-              Sign In
+              Sign Up
             </button>
-            <button onClick={() => navigate('/signup')} className="inline-block align-baseline font-bold text-sm text-purple-500 hover:text-purple-800" type="button">
-              Don't have an account?
+            <button onClick={() => navigate('/login')} className="inline-block align-baseline font-bold text-sm text-purple-500 hover:text-purple-800" type="button">
+              Already have an account?
             </button>
           </div>
         </form>
@@ -57,4 +55,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

@@ -1,15 +1,16 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function Table() {
-    const colorr = useSelector((state) => state.colorBg.boolean)
+  const colorr = useSelector((state) => state.colorBg.boolean);
+
   return (
-    <div className={`flex flex-col shadow-md p-3 ${colorr?'':'shadow-sh'}`}>
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
+    <div className={`overflow-x-auto w-full self-center overflow-hidden   flex flex-col shadow-md p-3 ${colorr ? '' : 'shadow-sh'}`}>
+      <div className=" sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full text-left text-sm font-light text-tx">
-              <thead className="border-b font-medium dark:border-neutral-500">
+          <div className="">
+            <table className=" min-w-full text-left text-sm font-light text-tx">
+               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr>
                   <th scope="col" className="px-6 py-4">Tracking ID</th>
                   <th scope="col" className="px-6 py-4">Product</th>
@@ -72,7 +73,7 @@ function Table() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Table
+export default Table;
