@@ -82,10 +82,10 @@ uploadTask.on('state_changed',
 
 
   return (
-    <div className='flex h-[100vh]'>
+    <div className={`flex h-fit ${colorr ? '' : 'bg-drk'}`}>
       <div className='flex-1'><Sidebar /></div>
       <div className={`flex-[6]  gap-5 ${colorr ? '' : 'bg-drk'}`}>
-        <Navbar />
+        <Navbar bl={false}/>
         <div className={`flex justify-start items-center w-[97%] mx-auto  mt-3 p-3 ${colorr ? '' : 'shadow-sh bg-drk'} shadow-lg`}>
           <h2 className='text-tx text-lg'>Add New User</h2>
         </div>

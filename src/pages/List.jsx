@@ -10,7 +10,7 @@ function List() {
     <div className='flex overflow-hidden'>
       <div className='flex-1'><Sidebar /></div>
       <div className={`flex-[6] flex flex-col gap-5 ${colorr ? '' : 'bg-drk'}`}>
-        <Navbar />
+        <Navbar bl={false}/>
         <div className={`flex flex-row w-full justify-between items-center px-5 mt-3`}>
           <h3 className='text-tx text-lg'>Add New User</h3>
           <NavLink to='/users/new' className={`px-1 py-2 border-solid border-[1px] border-green-700 text-green-700 cursor-pointer`}>Add New</NavLink>

@@ -1,44 +1,52 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { FetchData } from '../redux/products/ProoductsSlice';
+import { fetchUsers } from '../redux/ProoductsSlice';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import StoreItem from '../components/StoreItem';
+import ShopItem from '../components/ShopItem';
 
 function Products() {
-  const selector = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const colorr = useSelector((state) => state.colorBg.boolean);
+  const inf = useSelector((store) => store.user);
+  const items = useSelector((state) => state.shop)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(FetchData());
-  }, []);
+      dispatch(fetchUsers())
+  }, [])
+  useEffect(() =>{
+    const dr = document.querySelector(".dr")
+    if(dr){
+        if(items.boolean === false){
+            dr.style.right = '-100%'
+            dr.style.opacity = 1
+            document.body.style.opacity = 1
+        }else if(items.boolean === true){
+            dr.style.right = '0';
+            dr.style.opacity = 1
+        }
+    }
+},[items.boolean])
+
+// window.localStorage.clear()
+
 
   return (
-    <div className='flex overflow-x-hidden'>
+    <div className='flex overflow-x-hidden relative'>
+      <div className={`absolute  z-30 dr ${colorr? 'text-white bg-white': 'bg-drk'}`}><ShopItem /></div>
       <div className='flex-1'>
         <Sidebar />
       </div>
       <div className={`flex-[6] gap-5 ${colorr ? '' : 'bg-drk'}`}>
-        <Navbar />
+        {!inf.loading && inf.data ? <Navbar bl={true}/> : null}
         <div className={`p-3 flex justify-center ${colorr ? '' : 'bg-drk'}`}>
-          {selector && selector.loading && <h1>Loading ...</h1>}
-          {selector && !selector.loading && selector.error && (
-            <h1>{selector.error}</h1>
+          {inf && inf.loading && <h1>Loading ...</h1>}
+          {inf && !inf.loading && inf.error && (
+            <h1>{inf.error}</h1>
           )}
-          {selector && !selector.loading && selector.data && (
-            <ul className='flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-4'>
-              {selector.data.map((prd) => (
-                <li key={prd.id} className={`bg-white rounded-lg  gap-3 
-                p-4 flex flex-col items-center justify-between w-[250px] h-[450px]
-                ${colorr?'':'bg-d rk shadow-sh'} shadow-lg`}>
-                    <h1 className='text-center text-sm text-tx font-bold mb-2'>{prd.title}</h1>
-                    <div className='h-[220px] w-full'><img src={prd.image} alt={prd.title} className='w-full h-full mb-2' /></div>
-                    <p className='text-gray-700'>Price: ${prd.price}</p>
-                </li>
-              ))}
-            </ul>
-          )}
+          {!inf.loading && inf.data ? <StoreItem inf={inf.data}/> : null}
         </div>
       </div>
     </div>

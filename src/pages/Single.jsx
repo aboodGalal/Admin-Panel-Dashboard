@@ -37,7 +37,7 @@ function Single() {
     <div className='flex overflow-hidden'>
       <div className='flex-1'><Sidebar /></div>
       <div className={`flex-[6]  gap-5 ${colorr ? '' : 'bg-drk'}`}>
-        <Navbar />
+        <Navbar bl={false}/>
         <div className={`flex flex-col md:flex-row gap-5  p-3  ${colorr ? '' : 'bg-drk'}`}>
           <div className={`flex flex-1 flex-col items-center justify-center  rounded-lg p-3 gap-3 relative crd ${colorr ? '' : 'bg-drk shadow-sh'} shadow-lg`}>
             <h3 className={`text-tx`}>Information</h3>

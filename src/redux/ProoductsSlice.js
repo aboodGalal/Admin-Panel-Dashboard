@@ -10,16 +10,13 @@ const initialState = {
     error: "",
 }
 
-export const FetchData = createAsyncThunk('user/FetchData', async () =>{
-    // console.log("Fetching data...");
-    // const res = await axios.get('https://dummyjson.com/products');
-    // const data = res.data
-    // .map((product) =>({
-    //     ...product,
-        // boolean: false,
-    // }))
-    return axios.get('https://fakestoreapi.com/products')
-    .then((res) => res.data)
+export const fetchUsers = createAsyncThunk('user/FetchData', async () =>{
+    const res = await axios.get('https://fakestoreapi.com/products');
+    const data = res.data.map((product) =>({
+        ...product,
+        boolean: false,
+    }))
+    return data
 })
 
 
@@ -27,17 +24,17 @@ const productsSlice = createSlice({
     name: "user",
     initialState,
     extraReducers: (biulder) =>{
-        biulder.addCase(FetchData.pending, (state) =>{
+        biulder.addCase(fetchUsers.pending, (state) =>{
             state.loading = true
             console.log("Fetching data...");
         });
-        biulder.addCase(FetchData.fulfilled, (state, action) =>{
+        biulder.addCase(fetchUsers.fulfilled, (state, action) =>{
             state.loading = false
             state.data = action.payload
             state.error = ""
             console.log("Data fetched successfully:", action.payload);
         });
-        biulder.addCase(FetchData.rejected, (state, action) =>{
+        biulder.addCase(fetchUsers.rejected, (state, action) =>{
             state.loading = false
             state.data = []
             state.error = action.error.message

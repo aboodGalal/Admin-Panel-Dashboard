@@ -5,7 +5,7 @@ import { faTableColumns, faUser, faShop, faCreditCard, faTruckMoving,
 import { NavLink } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import {  useDispatch, useSelector } from 'react-redux'
-import { Tr, Fl } from '../../redux/ColorBg'
+import { Tr, Fl } from '../redux/ColorBg'
 
 
 function Sidebar() {
@@ -19,8 +19,8 @@ function Sidebar() {
     }
 
   return (
-        <div className={`flex-1 h-[100%] md:w-[15 0px] border-r-[1px] flex flex-col  ${colorr? 'text-white border-r-[1px] border-solid border-brdrW': 'bg-drk border-r-[1px] border-solid border-brdrB'}`}>
-            <NavLink to='/' className={`${colorr ? 'text-prple border-brdrW':'text-[#999999] border-brdrB'} flex justify-center items-center py-2 border-b-2  font-bold text-[10px] md:text-[20px]`}>lamadmin</NavLink>
+        <div className={`flex-1 h-[100%]  border-r-[1px] flex flex-col  ${colorr? 'text-white border-r-[1px] border-solid border-brdrW': 'bg-drk border-r-[1px] border-solid border-brdrB'}`}>
+            <NavLink to='/' className={`${colorr ? 'text-prple border-brdrW':'text-[#999999] border-brdrB'} flex justify-center items-center py-5 border-b-2 h-[67px]  font-bold text-[10px] md:text-[20px]`}>lamadmin</NavLink>
             <div className='flex flex-col mt-3 pl-2 md:px-3 gap-3'>
                 <ul className='flex flex-col text-[12px] font-[600]'>
                     <h4 className='text-center md:text-start text-[15px] text-gray-400'>MAIN</h4>

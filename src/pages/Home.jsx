@@ -17,7 +17,7 @@ function Home() {
     <div className='flex overflow-x-hidden '>
       <div className='flex-1'><Sidebar /></div>
       <div className={`flex-[6] gap-5 ${colorr?'':'bg-drk'}`}>
-        <Navbar />
+        <Navbar bl={false}/>
         <div className={`flex mx-1 items-center justify-center flex-wrap gap-5 p-3 ${colorr?'':'bg-drk'}`}>
           <Card title={'USERS'} link={`See all users`} icon={<FontAwesomeIcon icon={faUser} />} stylee={{bg:'#FFCCCC',clr:'#E23656'}}/>
           <Card title={'ORDERS'} link={`View all orders`} icon={<FontAwesomeIcon icon={faCartShopping} />} stylee={{bg:'#F8EDD2',clr:'#DDAE37'}}/>
